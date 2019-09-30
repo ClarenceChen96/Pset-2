@@ -3,6 +3,7 @@ import os
 from hashlib import sha256
 
 
+
 def get_csci_salt() -> bytes:
     """Returns the appropriate salt for CSCI E-29"""
     return bytes.fromhex(os.environ['CSCI_SALT'])
@@ -18,9 +19,10 @@ def hash_str(some_val: AnyStr, salt: AnyStr = ""):
     :param salt: Add randomness to the hashing
 
     """
-    return sha256((salt+val).encode()).digest()
+    return sha256((salt+some_val).encode()).digest()
 
 
 def get_user_id(username: str) -> str:
     salt = get_csci_salt()
     return hash_str(username.lower(), salt=salt).hex()[:8]
+

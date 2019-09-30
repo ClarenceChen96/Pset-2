@@ -53,10 +53,15 @@ class AtomicWriteTests(TestCase):
             assert not os.path.exists(tmpfile)
             assert not os.path.exists(fp)
 
-    def test_file_exists(self, file):
+    def test_file_exists(self):
         """Ensure an error is raised when a file exists"""
-        try:
-            f = open(file, 'x')
-        except FileExistsError:
+        with TemporaryDirectory() as tmp:
+            fp = os.path.join(tmp, "asdf.txt")
+            f2 = open(fp,'w+')
+            with self.assertRaises(Exception) as context:
+                with atomic_write(fp) as f:
+                    f.write("exist")
+
+
 
 
