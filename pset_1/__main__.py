@@ -8,7 +8,7 @@ def get_user_hash(username, salt=None):
 
 if __name__ == "__main__":
 
-    excel_path='dwb.xlsx'
+    excel_path="data/hashed.xlsx"
     pd = pandas.read_excel(excel_path, dtype=str)
     with atomic_write_parquet(excel_path) as file:
         pd.to_parquet(file, engine='pyarrow')
