@@ -27,27 +27,28 @@ def atomic_write(file, mode="w", as_file=True, **kwargs):
     try:
         tempname=temp.name
         f=open(tempname, mode, as_file, **kwargs)
-        f2=open(file, 'x')
-        f2.close()
+        if os.path.exists(file):
+            raise FileExistsError
         yield f
     except FileExistsError:
         raise FileExistsError("The file "+str(file)+" already exists, exiting")
         exit(1)
-    except:
-        print("Some error occured")
-        raise
+    except Exception as e:
+        raise e
         exit(1)
-    finally:
+    else:
         f.flush()
         os.fsync(f.fileno())
         f.close()
         os.rename(tempname, file)
+    finally:
         try:
             os.remove(tempname)
         except OSError as e:
             if e.errno==2:
                 pass
             else:
+                print('unable to remove file')
                 raise
 
 @contextmanager
@@ -65,11 +66,8 @@ def atomic_write_parquet(file, mode="w", as_file=True, **kwargs):
     temp = tempfile.NamedTemporaryFile(delete=False)
     temp.file.close()
     try:
-        print('456')
         temp=pandas.read_parquet(parquet_name)
-        print('456')
         if isinstance(temp,pandas.DataFrame):
-            print('123')
             raise FileExistsError('file '+parquet_name+' already exist')
             exit(0)
     except FileExistsError:
