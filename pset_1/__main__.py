@@ -1,7 +1,7 @@
 from .hash_str import get_csci_salt, get_user_id, hash_str
 import pandas
 from .io import  atomic_write
-import dotenv
+#import dotenv
 
 import pyarrow
 
@@ -11,8 +11,12 @@ def get_user_hash(username, salt=None):
 
 
 if __name__ == "__main__":
-    """load environment variables"""
-    dotenv.load_dotenv('pset.env')
+    """version control:
+    manually load environment variables if environment does not
+    support automatic loading of dotenv file
+    also un-comment import dotenv
+    """
+    #dotenv.load_dotenv('pset.env')
 
     excel_path="data/hashed.xlsx"
 
