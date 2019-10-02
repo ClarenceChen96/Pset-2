@@ -3,7 +3,6 @@ import pandas
 from .io import  atomic_write
 #import dotenv
 
-import pyarrow
 
 def get_user_hash(username, salt=None):
     salt = salt or get_csci_salt()
