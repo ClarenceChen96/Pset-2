@@ -8,7 +8,6 @@ def get_csci_salt() -> bytes:
     """Returns the appropriate salt for CSCI E-29"""
     return bytes.fromhex(os.environ['CSCI_SALT'])
 
-    # Hint: use os.environment and bytes.fromhex
 
 
 def hash_str(some_val: AnyStr, salt: AnyStr = ""):
@@ -29,6 +28,9 @@ def hash_str(some_val: AnyStr, salt: AnyStr = ""):
 
 
 def get_user_id(username: str) -> str:
+    """hash username with random salt and
+    return the first few digits of the hash
+    """
     salt = get_csci_salt()
     return hash_str(username.lower(), salt=salt).hex()[:8]
 

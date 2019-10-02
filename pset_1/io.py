@@ -22,8 +22,17 @@ def atomic_write(file, mode="w", as_file=True, **kwargs):
             f.write("world!")
 
     """
+
+    """create a randomly named tempfile for atomic write"""
     temp = tempfile.NamedTemporaryFile(delete=False)
     temp.file.close()
+
+    """check if the target already exists, if so, raise and exit
+    yield the tempfile for write
+    if no exception:
+    flush and sync the file and rename it for atomic operation
+    finally clean up possible garbage if any present due to failure
+    """
     try:
         tempname=temp.name
         f=open(tempname, mode, as_file, **kwargs)
@@ -51,40 +60,3 @@ def atomic_write(file, mode="w", as_file=True, **kwargs):
                 print('unable to remove file')
                 raise
 
-@contextmanager
-def atomic_write_parquet(file, mode="w", as_file=True, **kwargs):
-    if '.' not in file:
-        raise NameError('the file or path name is incorrect')
-        #exit(0)
-    else:
-        if len(file.split('.'))!=2:
-            raise NameError('the file or path name is incorrect')
-            #exit(0)
-    parquet_name=file.split('.')[0]+'.parquet'
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    temp.file.close()
-    try:
-        temp=pandas.read_parquet(parquet_name)
-        if isinstance(temp,pandas.DataFrame):
-            raise FileExistsError('file '+parquet_name+' already exist')
-            exit(0)
-    except FileExistsError:
-        raise
-    except:
-        pass
-    try:
-        tempname=temp.name
-        yield tempname
-    except Error as e:
-        print("Some error occured:")
-        raise e
-        exit(1)
-    finally:
-        os.rename(tempname, parquet_name)
-        try:
-            os.remove(tempname)
-        except OSError as e:
-            if e.errno==2:
-                pass
-            else:
-                raise
