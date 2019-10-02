@@ -53,7 +53,6 @@ def atomic_write(file, mode="w", as_file=True, **kwargs):
 
 @contextmanager
 def atomic_write_parquet(file, mode="w", as_file=True, **kwargs):
-    print('789')
     if '.' not in file:
         raise NameError('the file or path name is incorrect')
         #exit(0)
@@ -62,7 +61,6 @@ def atomic_write_parquet(file, mode="w", as_file=True, **kwargs):
             raise NameError('the file or path name is incorrect')
             #exit(0)
     parquet_name=file.split('.')[0]+'.parquet'
-    print(parquet_name)
     temp = tempfile.NamedTemporaryFile(delete=False)
     temp.file.close()
     try:

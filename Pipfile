@@ -13,6 +13,8 @@ typing = "*"
 pandas = "*"
 dotenv = "*"
 pyarrow = "*"
+xlrd = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

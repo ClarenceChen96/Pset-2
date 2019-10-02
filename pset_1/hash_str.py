@@ -19,7 +19,13 @@ def hash_str(some_val: AnyStr, salt: AnyStr = ""):
     :param salt: Add randomness to the hashing
 
     """
-    return sha256((salt+some_val).encode()).digest()
+    h=sha256()
+    if isinstance(salt, bytes):
+        h.update(salt)
+    else:
+        h.update(salt.encode())
+    h.update(some_val.encode())
+    return h.digest()
 
 
 def get_user_id(username: str) -> str:
