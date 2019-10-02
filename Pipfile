@@ -11,9 +11,9 @@ pytest-cov = "*"
 awscli = "*"
 typing = "*"
 pandas = "*"
-dotenv = "*"
 pyarrow = "*"
 xlrd = "*"
+setuptools = "*"
 python-dotenv = "*"
 
 [requires]
