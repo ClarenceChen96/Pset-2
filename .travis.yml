@@ -8,6 +8,7 @@ python:
 # Command to run tests, e.g. python setup.py test
 install:
 - pip install pipenv
+- pipenv install xlrd
 - pipenv install --system --deploy --ignore-pipfile
 
 stages:
