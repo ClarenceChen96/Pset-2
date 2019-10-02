@@ -35,6 +35,5 @@ jobs:
       # Before running, get the data from s3 using the secret
       # credentials entered at https://travis-ci.com/csci-e-29/YOUR_PSET_REPO_NAME/settings
       # DO NOT commit these variables to git.
-- aws configure set aws_secret_access_key ok4qCdAOB79hd8SoCG/Hu9odnNgj8cx/Kzdp1NlZ
       - make data
       - python3 -m pset_1
