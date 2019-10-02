@@ -16,13 +16,6 @@ stages:
   - name: answers
     if: branch = master
 
-env:
-  -AWS_ACCESS_KEY_ID= AKIAQN6XZ5ZGO6GZ6WO4
-  -AWS_SECRET_ACCESS_KEY= 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
-  -CSCI_SALT=3f87b3a5b7e48ba408964366a7194789249d4ed33b962a9e5d76c5d6122237bc
-  -region = us-east-1
-  -output = json
-
 
 jobs:
   include:
@@ -42,7 +35,6 @@ jobs:
       # Before running, get the data from s3 using the secret
       # credentials entered at https://travis-ci.com/csci-e-29/YOUR_PSET_REPO_NAME/settings
       # DO NOT commit these variables to git.
-      - aws configure set aws_access_key_id AKIAQN6XZ5ZGO6GZ6WO4
-      - aws configure set aws_secret_access_key ok4qCdAOB79hd8SoCG/Hu9odnNgj8cx/Kzdp1NlZ
+- aws configure set aws_secret_access_key ok4qCdAOB79hd8SoCG/Hu9odnNgj8cx/Kzdp1NlZ
       - make data
       - python3 -m pset_1
